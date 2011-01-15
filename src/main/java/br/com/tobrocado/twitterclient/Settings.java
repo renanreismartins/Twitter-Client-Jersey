@@ -2,7 +2,7 @@ package br.com.tobrocado.twitterclient;
 
 public class Settings {
 
-    public static final String FRIENDS_TIMELINE_URL = "";
+    public static final String FRIENDS_TIMELINE_URL = "http://api.twitter.com/1/statuses/friends_timeline.xml";
 
     public static final String CONSUMER_KEY = "2clph6GDtKfkJOI9FfMA";
     public static final String CONSUMER_SECRET = "BhyskaFTEXN8KvLtJETxnEIOffIwXy398a8IydlI";

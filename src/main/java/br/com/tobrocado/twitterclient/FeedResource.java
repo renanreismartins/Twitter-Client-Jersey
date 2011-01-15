@@ -15,7 +15,6 @@ import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
 import javax.ws.rs.core.UriBuilder;
 
 
@@ -35,7 +34,7 @@ public class FeedResource {
         Client client = Client.create();
 
         OAuthSecrets oAuthSecrets = new OAuthSecrets()
-                .consumerSecret(CONSUMER_KEY)
+                .consumerSecret(CONSUMER_SECRET)
                 .tokenSecret(getTokenSecret());
 
         OAuthParameters oAuthParameters = new OAuthParameters()
@@ -47,9 +46,11 @@ public class FeedResource {
         ClientResponse response = client.resource(FRIENDS_TIMELINE_URL)
                 .get(ClientResponse.class);
 
-        List<Status> matados = response.getEntity(new GenericType<List<Status>>(){});
+        System.out.println(response.toString());
 
-        return Response.ok(new Viewable("/feed", matados)).build();
+        Feed feed = response.getEntity(Feed.class);
+
+        return Response.ok(new Viewable("/feed", feed)).build();
     }
 
     private Response requestToken() {

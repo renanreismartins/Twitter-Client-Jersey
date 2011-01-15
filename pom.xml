@@ -68,9 +68,15 @@
             <artifactId>oauth-signature</artifactId>
             <version>1.6-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>javax.servlet</groupId>
+            <artifactId>jstl</artifactId>
+            <version>1.2</version>
+        </dependency>
     </dependencies>
     <properties>
         <jersey-version>1.6-SNAPSHOT</jersey-version>
+        <netbeans.hint.deploy.server>gfv3ee6</netbeans.hint.deploy.server>
     </properties>
     <repositories>
         <repository>

@@ -35,8 +35,12 @@ public class AuthorizedResource {
 
         Form response = client.resource(ACCESS_TOKEN_URL).post(Form.class);
 
-        setToken(response.getFirst(OAuthParameters.TOKEN), OAuthParameters.TOKEN_SECRET, false);
+        setToken(response.getFirst(OAuthParameters.TOKEN),
+                response.getFirst(OAuthParameters.TOKEN_SECRET),
+                true);
 
-        return Response.seeOther(UriBuilder.fromResource(FeedResource.class).build()).build();
+        Response r = Response.seeOther(UriBuilder.fromResource(FeedResource.class).build()).build();
+        
+        return r;
     }
 }
