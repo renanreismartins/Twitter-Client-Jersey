@@ -2,7 +2,7 @@ package br.com.tobrocado.twitterclient;
 
 
 import static br.com.tobrocado.twitterclient.Settings.*;
-import java.util.List;
+import br.com.tobrocado.twitterclient.Status;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
@@ -11,6 +11,7 @@ import com.sun.jersey.api.view.Viewable;
 import com.sun.jersey.oauth.client.OAuthClientFilter;
 import com.sun.jersey.oauth.signature.OAuthParameters;
 import com.sun.jersey.oauth.signature.OAuthSecrets;
+import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
@@ -41,16 +42,19 @@ public class FeedResource {
                 .consumerKey(CONSUMER_KEY).token(token)
                 .signatureMethod("HMAC-SHA1").version("1.0");
 
+        // coloca os tokens de autenticação no header
         client.addFilter(new OAuthClientFilter(client.getProviders(), oAuthParameters, oAuthSecrets));
 
+        // realiza o get nesta url
         ClientResponse response = client.resource(FRIENDS_TIMELINE_URL)
                 .get(ClientResponse.class);
+        
+        // obtém os objetos conforme o formato de resposta da URL acima
+        // http://dev.twitter.com/console?content_type=xml&path=statuses/friends_timeline
+        List<Status> statuses = response.getEntity(new GenericType<List<Status>>(){});
 
-        System.out.println(response.toString());
-
-        Feed feed = response.getEntity(Feed.class);
-
-        return Response.ok(new Viewable("/feed", feed)).build();
+        // Manda para o template /feed.jsp
+        return Response.ok(new Viewable("/feed", statuses)).build();
     }
 
     private Response requestToken() {

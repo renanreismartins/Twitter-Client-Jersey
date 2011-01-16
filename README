@@ -1,0 +1,4 @@
+1. Coloque esta JVM option nas configurações do Glassfish v3:
+-Dcom.sun.enterprise.overrideablejavaxpackages=javax.ws.rs,javax.ws.rs.core,javax.ws.rs.ext
+
+2. Coloque o delegate do class-loader como falso, desmarcando a opção no arquivo sun-web.xml. Este arquivo é criado quando o projeto é associado ao Glassfish.
