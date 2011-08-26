@@ -11,6 +11,7 @@ import com.sun.jersey.api.view.Viewable;
 import com.sun.jersey.oauth.client.OAuthClientFilter;
 import com.sun.jersey.oauth.signature.OAuthParameters;
 import com.sun.jersey.oauth.signature.OAuthSecrets;
+import com.sun.jersey.oauth.signature.HMAC_SHA1;
 import java.util.List;
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
@@ -40,7 +41,7 @@ public class FeedResource {
 
         OAuthParameters oAuthParameters = new OAuthParameters()
                 .consumerKey(CONSUMER_KEY).token(token)
-                .signatureMethod("HMAC-SHA1").version("1.0");
+                .signatureMethod(HMAC_SHA1.NAME).version("1.0");
 
         // coloca os tokens de autenticação no header
         client.addFilter(new OAuthClientFilter(client.getProviders(), oAuthParameters, oAuthSecrets));
@@ -65,7 +66,7 @@ public class FeedResource {
 
         OAuthParameters oAuthParameters = new OAuthParameters()
                 .consumerKey(CONSUMER_KEY)
-                .signatureMethod("HMAC-SHA1").version("1.0");
+                .signatureMethod(HMAC_SHA1.NAME).version("1.0");
 
        client.addFilter(new OAuthClientFilter(client.getProviders(), oAuthParameters, oAuthSecrets));
 
