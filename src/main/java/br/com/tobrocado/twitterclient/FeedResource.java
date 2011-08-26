@@ -1,8 +1,6 @@
 package br.com.tobrocado.twitterclient;
 
-
 import static br.com.tobrocado.twitterclient.Settings.*;
-import br.com.tobrocado.twitterclient.Status;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.GenericType;
@@ -43,14 +41,14 @@ public class FeedResource {
                 .consumerKey(CONSUMER_KEY).token(token)
                 .signatureMethod(HMAC_SHA1.NAME).version("1.0");
 
-        // coloca os tokens de autenticação no header
+        // coloca os tokens de autenticaÃ§Ã£o no header
         client.addFilter(new OAuthClientFilter(client.getProviders(), oAuthParameters, oAuthSecrets));
 
         // realiza o get nesta url
         ClientResponse response = client.resource(FRIENDS_TIMELINE_URL)
                 .get(ClientResponse.class);
         
-        // obtém os objetos conforme o formato de resposta da URL acima
+        // obtÃ©m os objetos conforme o formato de resposta da URL acima
         // http://dev.twitter.com/console?content_type=xml&path=statuses/friends_timeline
         List<Status> statuses = response.getEntity(new GenericType<List<Status>>(){});
 
@@ -72,8 +70,8 @@ public class FeedResource {
 
        Form response = client.resource(REQUEST_TOKEN_URL).post(Form.class);
 
-       Settings.setToken(response.getFirst(oAuthParameters.TOKEN),
-               response.getFirst(oAuthParameters.TOKEN_SECRET),
+       Settings.setToken(response.getFirst(OAuthParameters.TOKEN),
+               response.getFirst(OAuthParameters.TOKEN_SECRET),
                false);
 
        return Response.seeOther(

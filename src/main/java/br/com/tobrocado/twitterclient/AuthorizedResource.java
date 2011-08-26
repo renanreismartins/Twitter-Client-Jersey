@@ -5,6 +5,7 @@ import static br.com.tobrocado.twitterclient.Settings.*;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.representation.Form;
 import com.sun.jersey.oauth.client.OAuthClientFilter;
+import com.sun.jersey.oauth.signature.HMAC_SHA1;
 import com.sun.jersey.oauth.signature.OAuthParameters;
 import com.sun.jersey.oauth.signature.OAuthSecrets;
 import javax.ws.rs.GET;
@@ -27,7 +28,7 @@ public class AuthorizedResource {
 
         OAuthParameters oAuthParams = new OAuthParameters()
                 .consumerKey(CONSUMER_KEY).token(getToken())
-                .signatureMethod("HMAC-SHA1").version("1.0")
+                .signatureMethod(HMAC_SHA1.NAME).version("1.0")
                 .verifier(verifier);
 
         client.addFilter(new OAuthClientFilter(
